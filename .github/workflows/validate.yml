@@ -1,0 +1,30 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile scripts
+        run: python -m py_compile nuedc-design-report-assistant/scripts/*.py
+      - name: Skill self-check
+        run: python nuedc-design-report-assistant/scripts/skill_self_check.py nuedc-design-report-assistant
+      - name: Unit tests
+        run: python -m unittest discover -s nuedc-design-report-assistant/scripts/tests
+      - name: Clean report smoke test
+        run: python nuedc-design-report-assistant/scripts/report_score_checker.py examples/report-clean.md --strict
+      - name: Pending report smoke test
+        run: python nuedc-design-report-assistant/scripts/report_score_checker.py examples/report-pending-test.md --format json
+      - name: Problem report should fail strict mode
+        run: |
+          if python nuedc-design-report-assistant/scripts/report_score_checker.py examples/report-with-issues.md --strict; then
+            echo "Expected problematic report to fail in strict mode."
+            exit 1
+          fi
