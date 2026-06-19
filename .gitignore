@@ -1,5 +1,6 @@
 __pycache__/
 .auth-tmp/
+gh-auth*.log
 *.py[cod]
 .pytest_cache/
 .DS_Store
