@@ -1,4 +1,4 @@
 interface:
   display_name: "电赛设计方案与报告助手"
-  short_description: "面向电子设计竞赛的赛题解析、方案论证、测试数据和设计报告助手"
-  default_prompt: "Use $nuedc-design-report-assistant to analyze an electronic design contest problem and produce a compliant design report plan."
+  short_description: "面向电子设计竞赛全流程的赛题拆解、方案设计、调试测试和报告助手"
+  default_prompt: "Use $nuedc-design-report-assistant to analyze an electronic design contest problem and produce an award-level engineering workflow, test plan, and report outline."

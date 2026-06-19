@@ -139,9 +139,31 @@ def has_pending_measurement_table(text: str) -> bool:
     return has_table and required_terms and pending_terms
 
 
+def has_metric_fulfillment_matrix(text: str) -> bool:
+    table_like = "|" in text and "---" in text
+    title_like = any(
+        term in text
+        for term in (
+            "指标完成情况",
+            "指标达成",
+            "完成情况",
+            "达成情况",
+            "评分点对齐",
+            "需求矩阵",
+        )
+    )
+    required_terms = all(term in text for term in ("题目要求", "设计实现", "测试"))
+    outcome_terms = any(term in text for term in ("测试结果", "实测", "是否满足", "通过标准"))
+    return table_like and title_like and required_terms and outcome_terms
+
+
 def analyze(text: str, source: str, max_pages: int, chars_per_page: int) -> dict:
     issues: list[dict] = []
     normalized = compact(text)
+    non_table_text = "\n".join(
+        line for line in text.splitlines() if not line.lstrip().startswith("|")
+    )
+    normalized_non_table = compact(non_table_text)
 
     for section in REQUIRED_SECTIONS:
         if not has_any(text, section["patterns"]):
@@ -176,7 +198,10 @@ def analyze(text: str, source: str, max_pages: int, chars_per_page: int) -> dict
             "未发现包含理论值、实测值、误差的测试数据表。没有数据时应保留待填写表格。",
         )
 
-    unsupported_claim = re.search(r"(测试结果|所有指标|各项指标|实物测试).{0,20}(符合|达到|满足|成功|良好)", normalized)
+    unsupported_claim = re.search(
+        r"(测试结果|所有指标|各项指标|实物测试).{0,20}(符合|达到|满足|成功|良好)",
+        normalized_non_table,
+    )
     if unsupported_claim and not has_real_data:
         add_issue(
             issues,
@@ -184,6 +209,14 @@ def analyze(text: str, source: str, max_pages: int, chars_per_page: int) -> dict
             "high",
             "存在测试成功/指标满足类表述，但缺少实测数据表支撑。",
             unsupported_claim.group(0),
+        )
+
+    if not has_metric_fulfillment_matrix(text):
+        add_issue(
+            issues,
+            "missing-metric-fulfillment-matrix",
+            "medium",
+            "缺少指标完成情况/评分点对齐矩阵。优秀报告应把题目要求、设计实现、测试项目和结果对应起来。",
         )
 
     for pattern in IDENTITY_PATTERNS:

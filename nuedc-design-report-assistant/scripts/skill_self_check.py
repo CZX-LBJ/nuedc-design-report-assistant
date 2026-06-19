@@ -13,6 +13,8 @@ from pathlib import Path
 REQUIRED_FILES = [
     "SKILL.md",
     "agents/openai.yaml",
+    "references/award-level-workflow.md",
+    "references/excellent-report-patterns.md",
     "references/templates.md",
     "references/electronics-reference.md",
     "references/compliance-quality.md",
@@ -33,6 +35,8 @@ MOJIBAKE_MARKERS = [
 ]
 
 REFERENCE_LINKS = [
+    "references/award-level-workflow.md",
+    "references/excellent-report-patterns.md",
     "references/templates.md",
     "references/electronics-reference.md",
     "references/compliance-quality.md",

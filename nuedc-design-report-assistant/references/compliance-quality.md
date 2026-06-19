@@ -6,6 +6,20 @@ This skill is for赛前训练、课程设计、校赛训练、赛后复盘, and 
 
 If the user asks for help during a formal live contest, keep assistance to rule reminders, safety, self-check checklists, and general study guidance unless the rules explicitly permit the requested help.
 
+When a user asks for "省级一等奖", "国奖", or "获奖级别", treat it as a quality target for training and review. Do not promise any award. Say that awards depend on official scoring, physical implementation, team execution, real measurements, and competition conditions.
+
+## Public-Source Learning Boundary
+
+It is acceptable to learn from public official notices, problem statements, training resources, and公开优秀作品 at the level of structure and engineering method:
+
+- How requirements are decomposed.
+- How schemes are compared.
+- How theory calculations support design choices.
+- How hardware/software modules are described.
+- How tests, errors, and fulfillment tables are presented.
+
+Do not copy winning-report prose, circuit diagrams, original figures, exact measured data, or distinctive formatting into generated outputs. If a public source is used for current rules or factual claims, cite the URL in user-facing material when appropriate.
+
 ## Public Rule Signals To Preserve
 
 The 2025 official process materials emphasize an engineering closed loop: design report, physical work, registration/materials, test records, and review/testing. Some赛区 materials specify anonymous reports, page limits, and a short Chinese abstract. These details can change by year and赛区, so tell the user to verify current rules before final submission.
@@ -38,10 +52,14 @@ Treat test data as three states:
 | 赛题理解 | Basic/advanced requirements, constraints, test conditions, and scoring items are extracted accurately. |
 | 方案论证 | At least two schemes, rejection reasons, and final choice rationale. |
 | 工程可行性 | The plan fits common components, team skills, and limited contest time. |
+| 系统架构 | Signal flow, control flow, power flow, debug flow, and module responsibilities are clear. |
+| 模块复现性 | Each key module has input/output, parts, parameters, risks, debug method, and evidence. |
 | 理论分析 | Formulas include variables, substituted values, and design meaning. |
 | 硬件设计 | Components have alternatives, risks, protection, and test points. |
-| 软件设计 | Main loop, modules, algorithms, interrupts/state machines, and debug outputs are readable. |
-| 测试方案 | Instruments, conditions, steps, data table, error formula, and pass/fail criteria are present. |
+| 软件设计 | Main loop, modules, algorithms, timing, interrupts/state machines, fault handling, and debug outputs are readable. |
+| 调试计划 | Unit, interface, integration, stress, and pre-judge stages have pass criteria. |
+| 测试方案 | Instruments, conditions, steps, repeated trials, data table, error formula, and pass/fail criteria are present. |
+| 证据闭环 | Every major metric maps to design implementation and test evidence. |
 | 报告规范 | Clear sections, figure/table labels, concise language, and page budget control. |
 | 诚信边界 | No fabricated measured data and no rule-violating external assistance. |
 
@@ -62,10 +80,14 @@ High-risk missing items:
 
 - No scheme comparison
 - No system block diagram or module responsibilities
+- No signal/control/power/debug flow
+- No module design cards for key modules
 - No theory calculation tied to design decisions
 - Hardware and software not both described
+- No staged debugging plan
 - No instruments/conditions/steps
 - No measured data table, or claims success without measured data
+- No metric fulfillment matrix linking requirements to test evidence
 - No error analysis
 - Identity information in anonymous report
 - Page limit ignored
