@@ -1,2 +1,0 @@
-
-failed to authenticate via web browser: Post "https://github.com/login/device/code": net/http: TLS handshake timeout
